@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+</head>
+
+<body>
+    <h1>Agnostic Grid</h1>
+    <div class="button-bar">
+        <button onclick="sizeToFit()">Size to Fit</button>
+        <button onclick="autoSizeAll()">Auto-Size All</button>
+        <label>
+            <input type="checkbox" id="showArgName" onclick="redrawAllRows()" /> Show Argument Name
+        </label>
+    </div>
+    <div id="myGrid" style="height: 600px;width:800px;" class="ag-theme-balham"></div>
+
+
+    <script type="text/javascript" charset="utf-8">
+        // specify the columns
+        var columnDefs = [
+            { headerName: "Action", field: "action", suppressSizeToFit: true, pinned: 'left' },
+            { headerName: "Arg #1", field: "a1", cellRenderer: 'DefaultArgCellRenderer', autoHeight: true },
+            { headerName: "Arg #2", field: "a2", cellRenderer: 'DefaultArgCellRenderer', autoHeight: true },
+            { headerName: "Arg #3", field: "a3", cellRenderer: 'DefaultArgCellRenderer', autoHeight: true }
+        ];
+
+        columnDefs.cellRendererParams = {
+            displayArgName: true
+        }
+
+        // specify the data
+        var rowData = [
+            { action: 'enter', a1: 'window = login' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'enter', a1: 'window = login', a2: 'control = txtUsername' },
+            { action: 'enter', a1: 'window = this is a long window name', a2: 'control = txtPassword', a3: "value = The only way to keep your health is to eat what you don't want, drink what you don't like, and do what you'd rather not" },
+            { action: 'click', a1: 'window = login', a2: 'control = btnLogin' },
+            { action: 'i am feeling lucky', a1: 'window = login', a2: 'control = btnLogin' },
+        ];
+
+        // let the grid know which columns and what data to use
+        var gridOptions = {
+            columnDefs: columnDefs,
+            rowData: rowData,
+            enableColResize: true,
+            components: {
+                'DefaultArgCellRenderer': DefaultArgCellRenderer
+            }
+        };
+
+        // cell renderer class
+        function DefaultArgCellRenderer() { }
+
+        // init method gets the details of the cell to be rendere
+        DefaultArgCellRenderer.prototype.init = function (params) {
+            if (params.value) {
+                this.eGui = document.createElement('span');
+                var checked = document.querySelector('#showArgName').checked;
+                var text = String(params.value).split("=")[1];
+                if (checked) {
+                    text = "<span style='display: block'><small>" + String(params.value).split("=")[0] + "</small></span>" +
+                        "<span style='display: block'>" + String(params.value).split("=")[1] + "</span>";
+                }
+                this.eGui.innerHTML = text;
+            }
+        };
+
+        DefaultArgCellRenderer.prototype.getGui = function () {
+            return this.eGui;
+        };
+
+        function sizeToFit() {
+            gridOptions.api.sizeColumnsToFit();
+        };
+        function autoSizeAll() {
+            var allColumnIds = [];
+            gridOptions.columnApi.getAllColumns().forEach(function (column) {
+                allColumnIds.push(column.colId);
+            });
+            gridOptions.columnApi.autoSizeColumns(allColumnIds);
+        };
+
+        function redrawAllRows() {
+            gridOptions.api.redrawRows();
+            gridOptions.api.resetRowHeights()
+        };
+
+        // lookup the container we want the Grid to use
+        var eGridDiv = document.querySelector('#myGrid');
+
+        // create the grid passing in the div to use together with the columns & data we want to use
+        new agGrid.Grid(eGridDiv, gridOptions);
+
+    </script>
+</body>
+
+</html>
